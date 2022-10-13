@@ -2,6 +2,7 @@ import calculator.RPN;
 import token.Token;
 import token.TokenType;
 import utils.Value;
+import lexer.Regex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,20 +49,12 @@ public class Main {
 
             Token token;
 
-            if (line.equals("+")) {
-                token = new Token(TokenType.PLUS, line);
-            } else if (line.equals("-")) {
-                token = new Token(TokenType.MINUS, line);
-            } else if (line.equals("*")) {
-                token = new Token(TokenType.STAR, line);
-            } else if (line.equals("/")) {
-                token = new Token(TokenType.SLASH, line);
-            } else if (Value.isStringInt(line)) {
+            if(Regex.isNum(line)) {
                 token = new Token(TokenType.NUM, line);
+            } else if (Regex.isOP(line)) {
+                token = new Token(Regex.getOPTokenType(line), line);
             } else {
-                scan.close();
-
-                throw new RuntimeException("Error: Unexpected character: " + line);
+                throw new RuntimeException("Unexpected character: "+ line);
             }
 
             tokens.add(token);
