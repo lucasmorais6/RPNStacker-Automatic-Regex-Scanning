@@ -1,8 +1,7 @@
 import calculator.RPN;
 import token.Token;
 import token.TokenType;
-import utils.Value;
-import lexer.Regex;
+import regex.Regex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
